@@ -1,0 +1,7 @@
+Win32/
+ModelSupport_EmailCleaner/
+__history/
+*.local
+*.res
+*.tvsconfig
+*.identcache

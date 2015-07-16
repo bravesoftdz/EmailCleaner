@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{4935CECD-1632-4E64-966C-E00EB8FA21DA}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="EmailCleaner.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\EmailCleanerTest.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="EmailCleaner">
+        <MSBuild Projects="EmailCleaner.dproj"/>
+    </Target>
+    <Target Name="EmailCleaner:Clean">
+        <MSBuild Projects="EmailCleaner.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EmailCleaner:Make">
+        <MSBuild Projects="EmailCleaner.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="EmailCleanerTest">
+        <MSBuild Projects="..\EmailCleanerTest.dproj"/>
+    </Target>
+    <Target Name="EmailCleanerTest:Clean">
+        <MSBuild Projects="..\EmailCleanerTest.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EmailCleanerTest:Make">
+        <MSBuild Projects="..\EmailCleanerTest.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="EmailCleaner;EmailCleanerTest"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="EmailCleaner:Clean;EmailCleanerTest:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="EmailCleaner:Make;EmailCleanerTest:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
