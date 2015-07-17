@@ -36,6 +36,7 @@ type
     function ReplaceRegExp(const Source: TStringList;
       const Replacement: TDictionary<string, string>): string;
     procedure SetProgressBar(ProgressBar: TProgressBar);
+    function dropDuplicates(const list: TStringList): TStringList;
 
     property OnProgress: TOnProgressEvent read FOnProgress write FOnProgress;
 
@@ -73,7 +74,6 @@ var
   line, Key, Value: string;
   strArray: TArray<string>;
   Mapper: TMapper;
-
 begin
   Mapper := TMapper.Create;
   allLines := LoadLines(FilePath);
@@ -92,14 +92,27 @@ var
   line: string;
 begin
   Lines := System.IOUtils.TFile.ReadAllLines(FilePath);
-  Result := TStringList.Create;
-  Result.Duplicates := dupIgnore;
-  Result.Sorted := TRUE;
   for line in Lines do
   begin
     Result.Add(line);
   end;
+end;
 
+
+function TContentProvider.dropDuplicates(const list: TStringList)
+  : TStringList;
+var
+  listTmp: TStringList;
+  word: string;
+begin
+  Result := TStringList.Create;
+  for word in list do
+  begin
+    if Result.IndexOf(word) = -1 then
+    begin
+      Result.Add(word);
+    end;
+  end;
 end;
 
 function TContentProvider.Replace(const Source: TStringList;
@@ -113,21 +126,19 @@ begin
   Result.Duplicates := dupIgnore;
   Result.Sorted := TRUE;
   ShowProgress := not(FProgressBar = nil);
-
   SourceSize := Source.Count;
   Counter := 0;
-  DoOnProgress(self,SourceSize,0);
+  DoOnProgress(Self, SourceSize, 0);
   for Item in Source do
   begin
-      Counter := Counter + 1;
-     DoOnProgress(self,SourceSize,Counter);
+    Counter := Counter + 1;
+    DoOnProgress(Self, SourceSize, Counter);
     if Replacement.ContainsKey(Item) then
     begin
       Value := Replacement[Item];
     end
     else
       Value := Item;
-
     Result.Add(Value);
   end;
 end;
@@ -153,15 +164,11 @@ end;
 
 function TContentProvider.Stringify(const Source: TStringList;
   const Separator: string): string;
-var
-  Item: string;
-  StringBuilder: TStringBuilder;
 begin
-  StringBuilder := TStringBuilder.Create;
-  for Item in Source do
-    StringBuilder.Append(Item + Separator);
-  Result := StringBuilder.ToString;
-  StringBuilder.Clear;
+  if Source.Count = 0 then
+    Result := ''
+  else
+    Result := string.Join(Separator, Source.ToStringArray);
 end;
 
 function TContentProvider.Stringify(const Dict: TDictionary<string, string>;

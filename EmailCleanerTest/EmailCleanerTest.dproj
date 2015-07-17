@@ -120,7 +120,7 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="EmailCleanerTests.pas"/>
+        <DCCReference Include="ContentProviderTests.pas"/>
         <DCCReference Include="..\EmailCleaner\ContentProvider.pas"/>
         <DCCReference Include="..\EmailCleaner\Mapper.pas"/>
         <BuildConfiguration Include="Release">

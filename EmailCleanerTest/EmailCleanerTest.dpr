@@ -8,7 +8,7 @@ uses
   DUnitX.Loggers.Console,
   DUnitX.Loggers.Xml.NUnit,
   DUnitX.TestFramework,
-  EmailCleanerTests in 'EmailCleanerTests.pas',
+  ContentProviderTests in 'ContentProviderTests.pas',
   ContentProvider in '..\EmailCleaner\ContentProvider.pas',
   Mapper in '..\EmailCleaner\Mapper.pas';
 
