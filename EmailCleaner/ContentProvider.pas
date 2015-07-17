@@ -15,6 +15,8 @@ uses
 type
   TOnProgressEvent = procedure(Sender: TObject; Max, Position: Integer)
     of object;
+  TResult = array of string;
+  TResult2 = Integer;
 
   TContentProvider = class(TObject)
   private
@@ -98,9 +100,7 @@ begin
   end;
 end;
 
-
-function TContentProvider.dropDuplicates(const list: TStringList)
-  : TStringList;
+function TContentProvider.dropDuplicates(const list: TStringList): TStringList;
 var
   listTmp: TStringList;
   word: string;
