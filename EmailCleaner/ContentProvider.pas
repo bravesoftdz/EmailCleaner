@@ -15,8 +15,6 @@ uses
 type
   TOnProgressEvent = procedure(Sender: TObject; Max, Position: Integer)
     of object;
-  TResult = array of string;
-  TResult2 = Integer;
 
   TContentProvider = class(TObject)
   private
