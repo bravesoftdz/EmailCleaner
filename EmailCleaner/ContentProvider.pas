@@ -100,7 +100,6 @@ end;
 
 function TContentProvider.dropDuplicates(const list: TStringList): TStringList;
 var
-  listTmp: TStringList;
   word: string;
 begin
   Result := TStringList.Create;
